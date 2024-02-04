@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Be my Valentine?</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <style>
+        .button-stage-1{
+            height: 100px;
+            width: 200px;
+            font-size: 20px;
+        }
+        .button-stage-2{
+            height: 150px;
+            width: 250px;
+            font-size: 40px;
+        }
+        .button-stage-3{
+            height: 200px;
+            width: 300px;
+            font-size: 40px;
+        }
+    </style>
+    <div id="container" class="container text-center" style="margin-top: 8rem;">
+        <h1>Will you be my valentine?</h1>
+        <img id="img" height="250px" width="250px" src="assets/wait.JPG">
+        <div style="margin-top: 4rem;">
+            <button id="yes" class="btn btn-success ">Yes</button>
+            <button id="no" class="btn btn-danger">No</button>
+            <p style="color: #bd2a2a" id="message" hidden>Maya. You are the best thing that has happend to me, you make me happy and overwhelmed with love. You make me laugh, and are genuinely the prettiest person in the entire world. You deserve everthing you want and I will protect you from everything that I can. <strong>I love you. Thank you for being my valentine. 💗</strong> </p>
+        </div>
+
+        <script>
+            var stage = 1
+            var noButton = document.getElementById("no")
+            var yesButton = document.getElementById("yes")
+            var img = document.getElementById("img")
+            var message = document.getElementById("message")
+            document.getElementById("yes").addEventListener("click", function(){
+                img.src = "/assets/yes.JPG"
+                yesButton.hidden = "true"
+                noButton.hidden = "true"
+                message.hidden = false;
+            })
+            document.getElementById("no").addEventListener("click", function(){
+                if (stage == 1){
+                    yesButton.innerHTML= "What do you mean?"
+                    img.src = "/assets/dizzy.JPG"
+                }
+                if (stage == 2){
+                    yesButton.innerHTML= "HUH YOU BETTER SAY YES"
+                    yesButton.classList.add("button-stage-1")
+                    img.src = "/assets/angry.JPG"
+                }
+                if (stage == 3){
+                    img.src = "/assets/sad.JPG"
+                    yesButton.innerHTML= "PRETTY PLEASE 🥺..."
+                    yesButton.classList.remove("button-stage-1")
+                    yesButton.classList.add("button-stage-2")
+                }
+                if (stage == 4){
+                    img.src = "/assets/broken.JPG"
+                    yesButton.innerHTML= "PLEASE IM BEGGING YOU WITH MY LIFE"
+                    yesButton.classList.remove("button-stage-2")
+                    yesButton.classList.add("button-stage-3")
+                }
+                if (stage == 5){
+                    img.src = "/assets/numb.JPG"
+
+                    yesButton.hidden = "true"
+                    noButton.innerHTML = "Fine. You win."
+                }
+                if (stage == 6){
+                    // close window
+                    document.getElementById("container").remove()
+                }
+                stage++
+
+            })
+        </script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

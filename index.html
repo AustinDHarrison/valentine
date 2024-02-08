@@ -23,65 +23,404 @@
             width: 300px;
             font-size: 40px;
         }
+
     </style>
     <div id="container" class="container text-center" style="margin-top: 8rem;">
-        <h1>Will you be my valentine?</h1>
-        <img id="img" height="250px" width="250px" src="assets/wait.JPG">
-        <div style="margin-top: 4rem;">
-            <button id="yes" class="btn btn-success ">Yes</button>
-            <button id="no" class="btn btn-danger">No</button>
-            <p style="color: #bd2a2a" id="message" hidden>Maya. You are the best thing that has happend to me, you make me happy and overwhelmed with love. You make me laugh, and are genuinely the prettiest person in the entire world. You deserve everthing you want and I will protect you from everything that I can. <strong>I love you. Thank you for being my valentine. 💗</strong> </p>
+        <div id="question-page">
+            <h1>Will you be my valentine?</h1>
+            <img id="img" height="250px" width="250px" src="assets/wait.JPG">
+            <div style="margin-top: 4rem;" >
+                <button id="yes" class="btn btn-success ">Yes</button>
+                <button id="no" class="btn btn-danger">No</button>
+                <p style="color: #bd2a2a" id="message" hidden>Maya. You are the best thing that has happend to me, you make me happy and overwhelmed with love. You make me laugh, and are genuinely the prettiest person in the entire world. You deserve everthing you want and I will protect you from everything that I can. <strong>I love you. Thank you for being my valentine. 💗</strong> </p>
+            </div>
         </div>
-
+        <div id="question-container">
+        </div>
+    </div>
         <script>
             var stage = 1
             var noButton = document.getElementById("no")
             var yesButton = document.getElementById("yes")
             var img = document.getElementById("img")
             var message = document.getElementById("message")
+            var yesPage = false;
+
+            var questionPage = document.getElementById("question-page") 
             document.getElementById("yes").addEventListener("click", function(){
-                img.src = "https://austindharrison.github.io/valentine/assets/yes.JPG"
+                img.src = "/assets/yes.JPG"
                 yesButton.hidden = "true"
                 noButton.hidden = "true"
                 message.hidden = false;
+                yesPage = true;
             })
             document.getElementById("no").addEventListener("click", function(){
                 if (stage == 1){
                     yesButton.innerHTML= "What do you mean?"
-                    img.src = "https://austindharrison.github.io/valentine/assets/dizzy.JPG"
+                    img.src = "/assets/dizzy.JPG"
                 }
                 if (stage == 2){
                     yesButton.innerHTML= "HUH YOU BETTER SAY YES"
                     yesButton.classList.add("button-stage-1")
-                    img.src = "https://austindharrison.github.io/valentine/assets/angry.JPG"
+                    img.src = "/assets/angry.JPG"
                 }
                 if (stage == 3){
-                    img.src = "https://austindharrison.github.io/valentine/assets/sad.JPG"
+                    img.src = "/assets/sad.JPG"
                     yesButton.innerHTML= "PRETTY PLEASE 🥺..."
                     yesButton.classList.remove("button-stage-1")
                     yesButton.classList.add("button-stage-2")
                 }
                 if (stage == 4){
-                    img.src = "https://austindharrison.github.io/valentine/assets/broken.JPG"
+                    img.src = "/assets/broken.JPG"
                     yesButton.innerHTML= "PLEASE IM BEGGING YOU WITH MY LIFE"
                     yesButton.classList.remove("button-stage-2")
                     yesButton.classList.add("button-stage-3")
                 }
                 if (stage == 5){
-                    img.src = "https://austindharrison.github.io/valentine/assets/numb.JPG"
+                    img.src = "/assets/numb.JPG"
 
                     yesButton.hidden = "true"
                     noButton.innerHTML = "Fine. You win."
                 }
                 if (stage == 6){
                     // close window
-                    document.getElementById("container").remove()
+                    questionPage.hidden = true;
                 }
                 stage++
+            });
+            var clickCount = 1
+                document.getElementById("img").addEventListener("click", function(){
+                    if (yesPage && clickCount >= 5){
+                        clickCount = 1
+                        questionPage.hidden
+                        startQuestions()
+                    }else if (yesPage){
+                        clickCount++;
+                    }
+                })
 
+
+    var questions = [
+        {
+            "question": {
+                "question": "What date is our anniversary?",
+                "type": "date"
+            },
+            "answer": undefined,
+            "correctAnswer": "2023-06-26",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What is my favourite colour?",
+                "type": "multiple",
+                "choices": [
+                    "Red", // 0
+                    "Green", // 1
+                    "Purple", // 2
+                    "Pink", // 3
+                    "Other" // 4
+                ]
+            },
+            "answer": undefined,
+            "correctAnswer": 4,
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What is my middle name?",
+                "type": "text"
+            },
+            "answer": undefined,
+            "correctAnswer": "david",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What is my birthday?",
+                "type": "date"
+            },
+            "answer": undefined,
+            "correctAnswer": "2009-07-02",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What is my mum's last name?",
+                "type": "text"
+            },
+            "answer": undefined,
+            "correctAnswer": "haylock",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What do I love most about you?",
+                "type": "multiple",
+                "choices": [
+                    "Smile", // 0
+                    "Laugh", // 1
+                    "Personality", // 2
+                    "Ass", // 3
+                    "You" // 4
+                ]
+            },
+            "answer": undefined,
+            "correctAnswer": -1,
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What film were we watching when we tried and failed?",
+                "type": "multiple",
+                "choices": [
+                    "Moana",
+                    "Frozen",
+                    "Wall-E",
+                    "Aladin"
+                ]
+            },
+            "answer": undefined,
+            "correctAnswer": 1,
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What words did I mess up the second time we met?",
+                "type": "text"
+            },
+            "answer": undefined,
+            "correctAnswer": "sock rollid",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "How much do you love me?",
+                "type": "multiple",
+                "choices": [
+                    "1",
+                    "2",
+                    "10",
+                    "50",
+                    "90",
+                    "1,000,000"
+                ]
+            },
+            "answer": undefined,
+            "correctAnswer": 5,
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What words did I tell you to remember on Thursday?",
+                "type": "text"
+            },
+            "answer": undefined,
+            "correctAnswer": "love valentine us",
+            "userCorrect": false
+        },
+        {
+            "question": {
+                "question": "What is CSS? Defines how websites...",
+                "type": "multiple",
+                "choices": [
+                    "work.",
+                    "look.",
+                    "run."
+                ]
+            },
+            "answer": undefined,
+            "correctAnswer": 1,
+            "userCorrect": false
+        }
+    ]
+        function startQuestions(){
+            document.getElementById("question-page").hidden = true;
+            const questionContainer = document.getElementById("question-container")
+            
+            const prompt = document.createElement("h1")
+            prompt.innerText = "How well do you know me?"
+            questionContainer.appendChild(prompt)
+            
+            const h3 = document.createElement("h3")
+            h3.innerText = "Let's see..."
+            questionContainer.appendChild(h3)
+
+            const button = document.createElement("button")
+            button.innerText = "Start"
+            button.classList = "btn btn-primary mt-5"
+            button.addEventListener("click", function(){
+                openQuestion(0)
             })
+            questionContainer.appendChild(button)
+        }
+
+        function openQuestion(id){
+            var questionContainer = document.getElementById("question-container")
+            var selectedQuestion = questions[id]
+            var questionBody;
+            var template = `
+                <h1>${selectedQuestion["question"]["question"]}</h1>
+                <div class="d-flex justify-content-evenly mt-4" style="width: 100%;" id="questionBody"></div>
+                <button id="submit-button" class="btn btn-success mt-5">Submit</button>
+                <span id="question-id" hidden>${id}</span>
+            `
+            questionContainer.innerHTML = template
+            document.getElementById("submit-button").addEventListener("click", function(){
+                checkQuestion(id)
+            })
+            if (selectedQuestion["question"]["type"] == "multiple"){
+                var multipleChoiceButtons = ""
+                const choiceAmount = selectedQuestion["question"]["choices"].length
+                for (let index = 0; index < choiceAmount; index++) {
+                    const buttonId = `${index}-button-${id}`; // Generate unique ID for each button
+                    console.log(index, selectedQuestion["question"]["choices"][index]);
+
+                    // Create radio button and label
+                    const radioButton = document.createElement('input');
+                    radioButton.type = 'radio';
+                    radioButton.className = 'btn-check';
+                    radioButton.name = 'options';
+                    radioButton.id = buttonId;
+                    radioButton.autocomplete = 'off';
+
+                    const label = document.createElement('label');
+                    label.className = 'btn btn-secondary';
+                    label.htmlFor = buttonId;
+                    label.textContent = selectedQuestion["question"]["choices"][index];
+
+                    // Add event listener
+                    radioButton.addEventListener("click", function() {
+                        questions[id]["answer"] = index;
+                        console.log(index);
+                });
+                document.getElementById("questionBody").appendChild(radioButton);
+                document.getElementById("questionBody").appendChild(label);
+            }
+            }
+
+            if(selectedQuestion["question"]["type"] == "date"){
+                const dateInput = document.createElement("input")
+                dateInput.type = "date"
+                dateInput.value = "2024-01-01"
+                dateInput.addEventListener("input", function(){
+                    questions[id]["answer"] = dateInput.value
+                    console.log(dateInput.value)
+                })
+                document.getElementById("questionBody").appendChild(dateInput)
+
+            }
+
+            if(selectedQuestion["question"]["type"] == "text"){
+                const textInput = document.createElement("input")
+                textInput.type = "text"
+                textInput.classList = "form-control"
+                textInput.autocomplete = false;
+                textInput.spellcheck = false;
+                textInput.addEventListener("input", function(){
+                    questions[id]["answer"] = (textInput.value).toLowerCase()
+                    console.log(textInput.value)
+                })
+                document.getElementById("questionBody").appendChild(textInput)
+            }
+        }
+
+
+
+        function checkQuestion(id){      
+            // The correct answer.
+            const correctAnswer = questions[id]["correctAnswer"];
+            //What the user has inputed.
+            var answer = questions[id]["answer"];
+            // Is the user correct.
+            var userCorrect = questions[id]["userCorrect"]
+            if (answer == correctAnswer){
+                questions[id]["userCorrect"] = true;
+                if ((questions.length - 1) == id){
+                    finalResult()
+                }else{
+                    console.log(answer, correctAnswer)
+                    console.log("correct")
+                    openQuestion(id + 1)
+                }
+            }else if(correctAnswer == -1){
+                questions[id]["userCorrect"] = true;
+                if ((questions.length - 1) == id){
+                    finalResult()
+                }else{
+                    console.log(answer, correctAnswer)
+                    console.log("correct")
+                    openQuestion(id + 1)
+                }
+            }
+            else{
+                console.log(answer, correctAnswer)
+                questions[id]["userCorrect"] = false;
+                if ((questions.length - 1) == id){
+                    finalResult()
+                }else{
+                    console.log("incorrect")
+                    openQuestion(id + 1)
+                }
+            }
+        }
+        var incorrectQuestions = []
+        var newQuestions = []
+        function finalResult(){
+            console.log(questions)
+            var container = document.getElementById("question-container")
+            container.innerHTML = ""
+            for (let index = 0; index < questions.length; index++) {
+                if(questions[index]["userCorrect"] == false){
+                    incorrectQuestions.push(questions[index])
+                }
+            }
+            const title = document.createElement("h4")
+            title.innerText = `💗 You got: ${(questions.length - incorrectQuestions.length)} out of ${questions.length} questions. 💗`
+            document.getElementById("question-container").appendChild(title)
+
+            const p = document.createElement("p")
+            p.innerHTML = `<strong>${((questions.length - incorrectQuestions.length)/questions.length) * 100}%</stong>`
+            p.classList = "mb-1 mt-1"
+            document.getElementById("question-container").appendChild(p)
+
+            for (let index = 0; index < incorrectQuestions.length; index++) {
+                const incorrect = document.createElement("p")
+                if (incorrectQuestions[index]["question"]["type"] == "multiple"){
+                    incorrect.innerHTML = `${incorrectQuestions[index]["question"]["question"]} - Your answer: <strong>${incorrectQuestions[index]["question"]["choices"][incorrectQuestions[index]["answer"]]}</strong> - Correct Answer: <strong>${incorrectQuestions[index]["question"]["choices"][incorrectQuestions[index]["correctAnswer"]]}</strong>`
+                }else{
+                    incorrect.innerHTML = `${incorrectQuestions[index]["question"]["question"]} - Your answer: <strong>${incorrectQuestions[index]["answer"]}</strong> - Correct Answer: <strong>${incorrectQuestions[index]["correctAnswer"]}</strong>`
+
+                }
+                document.getElementById("question-container").appendChild(incorrect)
+
+            }
+
+            const next = document.createElement("button")
+            next.classList = "btn btn-success mt-2 mb-5"
+            next.innerText = "Continue..."
+            next.addEventListener("click", function(){
+                displayMessage()
+            })
+            document.getElementById("question-container").appendChild(next)
+
+            console.log(incorrectQuestions)
+
+        }
+
+        function displayMessage(){
+            document.getElementById("question-container").innerHTML = ""
+            const message = document.createElement("p")
+            message.innerText = "You are the best thing that has ever happened to me and I can't thank you enough for choosing me to be yours forever. Without you I would be lost and with you I feel complete. I cherish every moment with you and I again can't thank you enough. I’m not very good with long messages, but I love you so damn much. You are funny, beautiful, smart, talented and pretty. You have the most beautiful eyes, hair, face, everything. Just you. You make me go crazy for your love. You make me go crazy for you. You. You. You. You. You. I love you Maya. Happy Valentines Sweetheart 💗"
+            message.style.color = "#DC143C"
+            document.getElementById("question-container").appendChild(message)
+            
+        }
         </script>
-    </div>
+
+        <script>
+
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>

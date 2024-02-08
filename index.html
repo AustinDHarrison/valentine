@@ -48,7 +48,7 @@
 
             var questionPage = document.getElementById("question-page") 
             document.getElementById("yes").addEventListener("click", function(){
-                img.src = "https://austindharrison.github.io/valentine/assets/assets/yes.JPG"
+                img.src = "https://austindharrison.github.io/valentine/assets/yes.JPG"
                 yesButton.hidden = "true"
                 noButton.hidden = "true"
                 message.hidden = false;
@@ -57,7 +57,7 @@
             document.getElementById("no").addEventListener("click", function(){
                 if (stage == 1){
                     yesButton.innerHTML= "What do you mean?"
-                    img.src = "https://austindharrison.github.io/valentine/assets/assets/dizzy.JPG"
+                    img.src = "https://austindharrison.github.io/valentine/assets/dizzy.JPG"
                 }
                 if (stage == 2){
                     yesButton.innerHTML= "HUH YOU BETTER SAY YES"
@@ -65,19 +65,19 @@
                     img.src = "https://austindharrison.github.io/valentine/assets/assets/angry.JPG"
                 }
                 if (stage == 3){
-                    img.src = "https://austindharrison.github.io/valentine/assets/assets/sad.JPG"
+                    img.src = "https://austindharrison.github.io/valentine/assets/sad.JPG"
                     yesButton.innerHTML= "PRETTY PLEASE 🥺..."
                     yesButton.classList.remove("button-stage-1")
                     yesButton.classList.add("button-stage-2")
                 }
                 if (stage == 4){
-                    img.src = "https://austindharrison.github.io/valentine/assets/assets/broken.JPG"
+                    img.src = "https://austindharrison.github.io/valentine/assets/broken.JPG"
                     yesButton.innerHTML= "PLEASE IM BEGGING YOU WITH MY LIFE"
                     yesButton.classList.remove("button-stage-2")
                     yesButton.classList.add("button-stage-3")
                 }
                 if (stage == 5){
-                    img.src = "https://austindharrison.github.io/valentine/assets/assets/numb.JPG"
+                    img.src = "https://austindharrison.github.io/valentine/assets/numb.JPG"
 
                     yesButton.hidden = "true"
                     noButton.innerHTML = "Fine. You win."

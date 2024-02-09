@@ -432,7 +432,9 @@
             container.innerHTML = ""
             for (let index = 0; index < questions.length; index++) {
                 if(questions[index]["userCorrect"] == false){
-                    incorrectQuestions.push(questions[index])
+                    if(questions[index]["clean"] && cleanVersion){
+                        incorrectQuestions.push(questions[index])
+                    }
                 }
             }
             const title = document.createElement("h4")

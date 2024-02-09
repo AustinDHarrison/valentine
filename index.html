@@ -98,7 +98,7 @@
                         clickCount++;
                     }
                 })
-    const cleanVersion = true;
+    var cleanVersion = true;
     var questions = [   
         {
             "question": {
@@ -249,9 +249,34 @@
             const questionContainer = document.getElementById("question-container")
             
             const prompt = document.createElement("h1")
-            prompt.innerText = "How well do you know me?"
+            prompt.innerHTML = `How well <detect id="clean-detector-1">do</detect> you know <detect id="clean-detector-2">me</detect>?`
             questionContainer.appendChild(prompt)
-            
+
+            var _detector1 = false
+            var _detector2 = false
+            const detector1 = document.getElementById("clean-detector-1")
+            const detector2 = document.getElementById("clean-detector-2")
+
+            detector1.addEventListener("click", function(){
+                if (_detector1){
+                    detector1.style.color = ""
+                    _detector1 = false
+                }else if(!_detector1){
+                    detector1.style.color = "#c40202"
+                    _detector1 = true
+                }
+            })
+            detector2.addEventListener("click", function(){
+
+                if (_detector2){
+                    detector2.style.color = ""
+                    _detector2 = false
+                }else if(!_detector2){
+                    detector2.style.color = "#c40202"
+                    _detector2 = true
+                }
+            })
+
             const h3 = document.createElement("h3")
             h3.innerText = "Let's see..."
             questionContainer.appendChild(h3)
@@ -260,6 +285,22 @@
             button.innerText = "Start"
             button.classList = "btn btn-primary mt-5"
             button.addEventListener("click", function(){
+                if(_detector1 && _detector2){
+                    if(cleanVersion){
+                        cleanVersion = false;
+                    }else{
+                        cleanVersion = true;
+                    }
+                }
+                if(cleanVersion){
+                    for (let index = questions.length - 1; index >= 0; index--) {
+                        if (!questions[index]["clean"]) {
+                            console.log("Removing", questions[index]);
+                            questions.splice(index, 1);
+                            console.log(questions)
+                        }
+                    }
+                }
                 openQuestion(0)
             })
             questionContainer.appendChild(button)
@@ -384,6 +425,7 @@
         }
         var incorrectQuestions = []
         var newQuestions = []
+
         function finalResult(){
             console.log(questions)
             var container = document.getElementById("question-container")

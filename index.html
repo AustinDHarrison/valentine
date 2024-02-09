@@ -98,9 +98,8 @@
                         clickCount++;
                     }
                 })
-
-
-    var questions = [
+    const cleanVersion = true;
+    var questions = [   
         {
             "question": {
                 "question": "What date is our anniversary?",
@@ -108,7 +107,8 @@
             },
             "answer": undefined,
             "correctAnswer": "2023-06-26",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -124,7 +124,8 @@
             },
             "answer": undefined,
             "correctAnswer": 4,
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -133,7 +134,8 @@
             },
             "answer": undefined,
             "correctAnswer": "david",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -142,7 +144,8 @@
             },
             "answer": undefined,
             "correctAnswer": "2009-07-02",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -151,7 +154,8 @@
             },
             "answer": undefined,
             "correctAnswer": "haylock",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -167,7 +171,8 @@
             },
             "answer": undefined,
             "correctAnswer": -1,
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": false
         },
         {
             "question": {
@@ -182,7 +187,8 @@
             },
             "answer": undefined,
             "correctAnswer": 1,
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": false
         },
         {
             "question": {
@@ -191,7 +197,8 @@
             },
             "answer": undefined,
             "correctAnswer": "sock rollid",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -208,7 +215,8 @@
             },
             "answer": undefined,
             "correctAnswer": 5,
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -217,7 +225,8 @@
             },
             "answer": undefined,
             "correctAnswer": "love valentine us",
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         },
         {
             "question": {
@@ -231,7 +240,8 @@
             },
             "answer": undefined,
             "correctAnswer": 1,
-            "userCorrect": false
+            "userCorrect": false,
+            "clean": true
         }
     ]
         function startQuestions(){
@@ -253,9 +263,11 @@
                 openQuestion(0)
             })
             questionContainer.appendChild(button)
+
         }
 
         function openQuestion(id){
+
             var questionContainer = document.getElementById("question-container")
             var selectedQuestion = questions[id]
             var questionBody;
@@ -269,34 +281,38 @@
             document.getElementById("submit-button").addEventListener("click", function(){
                 checkQuestion(id)
             })
-            if (selectedQuestion["question"]["type"] == "multiple"){
-                var multipleChoiceButtons = ""
-                const choiceAmount = selectedQuestion["question"]["choices"].length
-                for (let index = 0; index < choiceAmount; index++) {
-                    const buttonId = `${index}-button-${id}`; // Generate unique ID for each button
-                    console.log(index, selectedQuestion["question"]["choices"][index]);
+            if (cleanVersion && selectedQuestion["clean"] == false){
+                openQuestion(id + 1)
+            }else{
+                console.log(cleanVersion, selectedQuestion["clean"])
+                if (selectedQuestion["question"]["type"] == "multiple"){
+                    var multipleChoiceButtons = ""
+                    const choiceAmount = selectedQuestion["question"]["choices"].length
+                    for (let index = 0; index < choiceAmount; index++) {
+                        const buttonId = `${index}-button-${id}`; // Generate unique ID for each button
+                        console.log(index, selectedQuestion["question"]["choices"][index]);
 
-                    // Create radio button and label
-                    const radioButton = document.createElement('input');
-                    radioButton.type = 'radio';
-                    radioButton.className = 'btn-check';
-                    radioButton.name = 'options';
-                    radioButton.id = buttonId;
-                    radioButton.autocomplete = 'off';
+                        // Create radio button and label
+                        const radioButton = document.createElement('input');
+                        radioButton.type = 'radio';
+                        radioButton.className = 'btn-check';
+                        radioButton.name = 'options';
+                        radioButton.id = buttonId;
+                        radioButton.autocomplete = 'off';
 
-                    const label = document.createElement('label');
-                    label.className = 'btn btn-secondary';
-                    label.htmlFor = buttonId;
-                    label.textContent = selectedQuestion["question"]["choices"][index];
+                        const label = document.createElement('label');
+                        label.className = 'btn btn-secondary';
+                        label.htmlFor = buttonId;
+                        label.textContent = selectedQuestion["question"]["choices"][index];
 
-                    // Add event listener
-                    radioButton.addEventListener("click", function() {
-                        questions[id]["answer"] = index;
-                        console.log(index);
-                });
-                document.getElementById("questionBody").appendChild(radioButton);
-                document.getElementById("questionBody").appendChild(label);
-            }
+                        // Add event listener
+                        radioButton.addEventListener("click", function() {
+                            questions[id]["answer"] = index;
+                            console.log(index);
+                    });
+                    document.getElementById("questionBody").appendChild(radioButton);
+                    document.getElementById("questionBody").appendChild(label);
+                }
             }
 
             if(selectedQuestion["question"]["type"] == "date"){
@@ -323,6 +339,8 @@
                 })
                 document.getElementById("questionBody").appendChild(textInput)
             }
+            }
+            
         }
 
 
